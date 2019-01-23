@@ -274,6 +274,10 @@ class TimeChunkedProperty(PropertyCalculation):
         final = np.zeros(self.bin_index(t[0]))
         previous_time = -1
         for t_i, hist_i in zip(t, stack):
+
+            if not hasattr(hist_i, "__len__"):
+                raise ValueError("Histogram property is only available once. Recalculate across the full major progenitor.")
+
             end = self.bin_index(t_i)
             start = end - len(hist_i)
             valid = hist_i == hist_i

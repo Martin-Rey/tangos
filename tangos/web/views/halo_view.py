@@ -34,7 +34,10 @@ class TimeLinks(object):
 class DisplayProperty(object):
     def __init__(self, property):
         self.name = property.name.text
-        self.value = format_property_data(property)
+        try:
+            self.value = format_property_data(property)
+        except ValueError:
+            self.value = "Failed to retrieve value from database"
         self.is_array = property.data_is_array()
 
 class TimeProperty(DisplayProperty):
